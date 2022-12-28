@@ -1,21 +1,28 @@
-const App = () => {
-  const handleClick = (event, message) => {
-    // const selectedImg = useRef("img")
-    console.log(event.target);
-    console.log(message);
-    console.log('clicked');
-  };
-
+import React, { useState } from 'react';
+import './App.css';
+export default function ImageSlider() {
+  
+  const imgs=[
+    {id:0, value:"https://picsum.photos/id/237/200/300"},
+    {id:1, value:"https://picsum.photos/200/300?grayscale"},
+    {id:2, value:"https://picsum.photos/200/300/?blur"},
+  ]
+  const [wordData,setWordData]=useState(imgs[0])
+  const handleClick=(index)=>{
+    console.log(index)
+    const wordSlider=imgs[index];
+    setWordData(wordSlider)
+  }
   return (
-    <div>
-      <img
-        src="https://images.unsplash.com/photo-1590273466070-40c466b4432d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Z3JlZW4lMjBmb3Jlc3R8ZW58MHx8MHx8&w=1000&q=80"
-        alt="forest"
-        onClick={
-          (event) => handleClick(event, 'hello World')
-        }
-      />
+    <div className="main">
+      <img src={wordData.value} height="400" width="600" alt=''/> 
+      <div className='flex_row'>
+        {imgs.map((data,i)=>
+        <div className="thumbnail" key={i} >
+          <img className={wordData.id===i?"clicked":""} src={data.value} onClick={()=>handleClick(i)} height="70" width="100" alt='' />
+        </div>
+        )}
+      </div>
     </div>
   );
-};
-export default App;
+}
